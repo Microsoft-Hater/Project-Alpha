@@ -1,5 +1,5 @@
-using System.Collection;
-using System.Collection.Generic;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour {
@@ -36,7 +36,7 @@ public class SpawnManager : MonoBehaviour {
         // generates random spawn pos in gameworld, can be used for enemies and powerups
         float spawnPosX = Random.Range(-spawnRangeX, spawnRangeX);
         float spawnPosZ = Random.Range(-spawnRangeZ, spawnRangeZ);
-        Vector3 randomPos = new Vector3(spawnPosX, 0, spawnPosZ);
+        Vector3 randomPos = new Vector3(spawnPosX, 1, spawnPosZ);
 
         return randomPos;
     }
