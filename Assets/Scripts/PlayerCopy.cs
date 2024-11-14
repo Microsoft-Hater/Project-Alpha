@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerCopy : MonoBehaviour
 {
-	public float speed;
+    public float speed;
 	public float jumpForce;
 	private float horizontalInput;
 	private float verticalInput;
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 	private GameObject playerObject;
 
 	public GameObject bulletPrefab;
-	public float fireRate;
+	public float fireRate = 1;
 	public float untilFire = 0;
 	Quaternion playerOrientation;
 
@@ -50,40 +50,10 @@ public class PlayerController : MonoBehaviour
 		float cameraRot = mouseY * mouseSpeed * -1;
 		float playerRot = mouseX * mouseSpeed;
 
-
-
-		// FINALLY A SOLUTION. Just Need To Implement. NVM
-		/*float angle;
-		Vector3 axis = new Vector3(1, 0, 0);
-		playerCamera.transform.rotation.ToAngleAxis(out angle, out axis);
-		print(angle + " " + axis);
-		print(playerCamera.transform.rotation.eulerAngles);
-		print(playerCamera.transform.eulerAngles);
-		print(playerCamera.transform.rotation);*/
-		/*playerRb.AddForce(playerObject.transform.right * horizontalInput * Time.deltaTime * speed, ForceMode.Impulse);
-		playerRb.AddForce(playerObject.transform.forward * verticalInput * Time.deltaTime * speed, ForceMode.VelocityChange);*/
-
-		/*if (playerCamera.transform.rotation.x > 0){
-			//mouseY = 0;
-			//playerCamera.transform.eulerAngles = new Vector3(270, transform.eulerAngles.y, 0);
-			//print("23");
-			//apparantMouseY = apparantMouseY - mouseY;
-		}
-		else {
-			//apparantMouseY = apparantMouseY + mouseY;
-		}*/
-
 		if (Cursor.lockState == CursorLockMode.Locked && health > 0){
 			float currentTime = Time.time;
-			//transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
-			//transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * speed);
-			//playerRb.AddForce(playerObject.transform.right * horizontalInput * Time.deltaTime * speed, ForceMode.VelocityChange);
 			Vector3 test = new Vector3(horizontalInput, 0, verticalInput);
-			//playerRb.MovePosition(transform.position + playerObject.transform.right * horizontalInput * Time.deltaTime * speed);
 			playerRb.MovePosition(transform.position + (playerObject.transform.forward * verticalInput * Time.deltaTime * speed) + (playerObject.transform.right * horizontalInput * Time.deltaTime * speed));
-			//playerRb.velocity = playerObject.transform.forward * verticalInput * speed;
-			//transform.Rotate(Vector3.up * mouseX * mouseSpeed);
-			//playerCamera.transform.Rotate(Vector3.left * mouseY * mouseSpeed);
 			transform.eulerAngles = new Vector3(0, playerRot, 0);
 			playerCamera.transform.eulerAngles = new Vector3(cameraRot, transform.eulerAngles.y, 0);
 
@@ -99,7 +69,7 @@ public class PlayerController : MonoBehaviour
 			isOnGround = false;
 		}
 
-		if (Input.GetMouseButtonDown(0) && health > 0){
+		if (Input.GetMouseButtonDown(0)){
 			Cursor.lockState = CursorLockMode.Locked;
 		}
 		else if (Input.GetKeyDown(KeyCode.Escape)){
@@ -109,8 +79,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision){
 		isOnGround = true;
-		//transform.Translate(Vector3.right * 0);
-		//transform.Translate(Vector3.forward * 0);
 		if (collision.gameObject.CompareTag("Enemy")){
 			health = health - 1;
 			if (health <= 0){
